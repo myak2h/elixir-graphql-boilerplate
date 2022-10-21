@@ -45,6 +45,18 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: blog_posts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.blog_posts (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    title character varying(255) NOT NULL,
+    body character varying(255) NOT NULL,
+    author uuid
+);
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -96,6 +108,14 @@ CREATE TABLE public.user_tokens (
 
 
 --
+-- Name: blog_posts blog_posts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.blog_posts
+    ADD CONSTRAINT blog_posts_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -127,9 +147,18 @@ CREATE UNIQUE INDEX user_accounts__lower_email_index ON public.user_accounts USI
 
 
 --
+-- Name: blog_posts blog_posts_author_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.blog_posts
+    ADD CONSTRAINT blog_posts_author_fkey FOREIGN KEY (author) REFERENCES public.user_accounts(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 INSERT INTO public."schema_migrations" (version) VALUES (20210924135612);
 INSERT INTO public."schema_migrations" (version) VALUES (20210924135641);
 INSERT INTO public."schema_migrations" (version) VALUES (20210927160324);
+INSERT INTO public."schema_migrations" (version) VALUES (20221021174026);
