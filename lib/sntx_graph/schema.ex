@@ -17,11 +17,14 @@ defmodule SntxGraph.Schema do
   import_types(SntxGraph.BlogTypes)
 
   import_types(SntxGraph.UserMutations)
+  import_types(SntxGraph.BlogMutations)
+
   import_types(SntxGraph.UserQueries)
   import_types(SntxGraph.BlogQueries)
 
   mutation do
     import_fields(:user_mutations)
+    import_fields(:blog_mutations)
   end
 
   query do

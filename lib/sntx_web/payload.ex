@@ -20,8 +20,12 @@ defmodule SntxWeb.Payload do
     }
   end
 
+  def validate_found(nil), do: {:error, default_error(:not_found)}
+  def validate_found(item), do: {:ok, item}
+
   def default_error(code \\ :unexpected_error) do
     case code do
+      :not_found -> dgettext("global", "Not found")
       :no_access -> dgettext("global", "Access denied")
       :no_user -> dgettext("users", "Account does not exist")
       :no_permissions -> dgettext("global", "Insufficient permissions")

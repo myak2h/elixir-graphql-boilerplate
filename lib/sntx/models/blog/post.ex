@@ -23,8 +23,8 @@ defmodule Sntx.Models.Blog.Post do
     |> validate_required([:title, :body])
   end
 
-  def create(attrs) do
-    %Post{}
+  def create(author_id, attrs) do
+    %Post{author_id: author_id}
     |> changeset(attrs)
     |> Repo.insert()
   end
@@ -33,6 +33,11 @@ defmodule Sntx.Models.Blog.Post do
     post
     |> changeset(attrs)
     |> Repo.update()
+  end
+
+  def delete(post) do
+    post
+    |> Repo.delete()
   end
 
   def list(), do: Repo.all(Post)
