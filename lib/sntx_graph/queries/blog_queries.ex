@@ -4,7 +4,6 @@ defmodule SntxGraph.BlogQueries do
   alias SntxGraph.BlogResolver
 
   object :blog_queries do
-    @desc "Current account. Null when user is guest/banned/deleted"
     field :blog_posts, list_of(:blog_post) do
       resolve(&BlogResolver.list_posts/2)
     end
