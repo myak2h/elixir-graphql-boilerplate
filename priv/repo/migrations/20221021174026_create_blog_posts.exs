@@ -6,8 +6,9 @@ defmodule Sntx.Repo.Migrations.CreateBlogPosts do
       add :id, :binary_id, primary_key: true, default: fragment("gen_random_uuid()")
       add :title, :string, null: false
       add :body, :string, null: false
+      add :author_id, references(:user_accounts, type: :binary_id)
 
-      add :author, references(:user_accounts, type: :binary_id)
+      timestamps()
     end
   end
 end

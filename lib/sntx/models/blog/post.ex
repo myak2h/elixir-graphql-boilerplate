@@ -35,10 +35,13 @@ defmodule Sntx.Models.Blog.Post do
     |> Repo.update()
   end
 
-  def get(id) do
-    case Repo.get_by(Post, id: id) do
-      nil -> {:error, dgettext("global", "Post not found")}
-      post -> {:ok, post}
-    end
+  def list(), do: Repo.all(Post)
+
+  def get(id), do: Repo.get(Post, id)
+
+  def public_author(post, _args, _ctx) do
+    %Post{author: author} = Repo.preload(post, [:author])
+
+    {:ok, "#{author.first_name} #{author.last_name}"}
   end
 end

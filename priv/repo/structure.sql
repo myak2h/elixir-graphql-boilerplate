@@ -52,7 +52,9 @@ CREATE TABLE public.blog_posts (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     title character varying(255) NOT NULL,
     body character varying(255) NOT NULL,
-    author uuid
+    author_id uuid,
+    inserted_at timestamp(0) without time zone NOT NULL,
+    updated_at timestamp(0) without time zone NOT NULL
 );
 
 
@@ -147,11 +149,11 @@ CREATE UNIQUE INDEX user_accounts__lower_email_index ON public.user_accounts USI
 
 
 --
--- Name: blog_posts blog_posts_author_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: blog_posts blog_posts_author_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.blog_posts
-    ADD CONSTRAINT blog_posts_author_fkey FOREIGN KEY (author) REFERENCES public.user_accounts(id);
+    ADD CONSTRAINT blog_posts_author_id_fkey FOREIGN KEY (author_id) REFERENCES public.user_accounts(id);
 
 
 --
